@@ -1,0 +1,16 @@
+
+- name: run script from git repo
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Clone git repo
+      ansible.builtin.git:
+        repo: '{{ repo }}'
+        dest: git-repo
+      environment:
+        GIT_TERMINAL_PROMPT: 0 # reports "terminal prompts disabled" on missing password
+
+    - name: Run script
+      ansible.builtin.script:
+        cmd: from-git-repo/'{{ script }}'
