@@ -13,4 +13,4 @@
 
     - name: Run script
       ansible.builtin.script:
-        cmd: from-git-repo/'{{ script }}'
+        cmd: git-repo/'{{ script }}'
