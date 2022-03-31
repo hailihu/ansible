@@ -10,9 +10,9 @@
       file:
         path: "{{ item }}"
         state: directory
-#       become: true
-#       become_method: sudo
-#       become_user: "{{ account }}"
+      become: true
+      become_method: sudo
+      become_user: "{{ account }}"
       with_items:
       - {{ home }}/.aws
       - {{ home }}/.evalai
