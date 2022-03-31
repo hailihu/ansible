@@ -13,6 +13,6 @@
       environment:
         GIT_TERMINAL_PROMPT: 0 # reports "terminal prompts disabled" on missing password
 
-#     - name: Run script
-#       ansible.builtin.script:
-#         cmd: "/opt/git-repo/{{ script }}"
+    - name: Run script
+      ansible.builtin.script:
+        cmd: "/opt/git-repo/{{ script }}"
