@@ -15,3 +15,5 @@
 
     - name: Run script
       shell: "source /opt/git-repo/{{ script }}"
+      args:
+        executable: /bin/bash
