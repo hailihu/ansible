@@ -14,8 +14,8 @@
       become_method: sudo
       become_user: "{{ account }}"
       with_items:
-      - {{ home }}/.aws
-      - {{ home }}/.evalai
+      - "{{ home }}/.aws"
+      - "{{ home }}/.evalai"
   
     - name: aws config
       shell: 'echo "[default] \nregion=us-east-1\naws_access_key_id = {{ aws_access_key_id }}\naws_secret_access_key = {{ aws_secret_access_key }}" > {{ home }}/.aws/config'
