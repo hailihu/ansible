@@ -12,9 +12,6 @@
       file:
         path: "{{ item }}"
         state: directory
-      become: true
-      become_method: sudo
-      become_user: "{{ account }}"
       with_items:
       - "{{ config_dir }}/.aws"
       - "{{ config_dir }}/.evalai"
