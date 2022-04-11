@@ -9,11 +9,11 @@
     - name: Clone git repo
       ansible.builtin.git:
         repo: "{{ repo }}"
-        dest: "/opt/git-repo"
+        dest: "/opt/{{ repo  }}"
       environment:
         GIT_TERMINAL_PROMPT: 0 # reports "terminal prompts disabled" on missing password
 
     - name: Run script
-      shell: "source /opt/git-repo/{{ script }}"
+      shell: "source /opt/{{ repo }}/{{ script }}"
       args:
         executable: /bin/bash
