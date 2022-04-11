@@ -1,0 +1,23 @@
+---
+
+- name: config tors
+  hosts: localhost
+  gather_facts: true
+
+  vars:
+    - config_dir: /var
+
+  tasks:
+    - name: Creates directory
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+      - "{{ config_dir }}/.aws"
+      - "{{ config_dir }}/.evalai"
+  
+    - name: aws config
+      shell: 'echo "[default] \nregion=us-east-1\naws_access_key_id = {{ aws_access_key_id }}\naws_secret_access_key = {{ aws_secret_access_key }}" > {{config_dir }}/.aws/config'
+
+    - name: evalai config
+      shell: 'echo "{\"auth_token\": \"{{ auth_token }}\",\n\"evalai_api_server\": \"https://eval.ai\",\n\"queue_name\": \"{{ queue_name }}\",\n\"challenge_pk\": \"{{ challenge_pk }}\"}" > {{ config_dir }}/.evalai/worker_config.json'
