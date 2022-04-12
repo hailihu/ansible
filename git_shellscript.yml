@@ -5,15 +5,18 @@
   hosts: localhost
   gather_facts: true
 
+  vars:
+    - git_dir: /opt
+
   tasks:
     - name: Clone git repo
       ansible.builtin.git:
         repo: "{{ repo }}"
-        dest: "/opt/{{ repo  }}"
+        dest: "{{ git_dir }}/{{ repo | basename }}"
       environment:
         GIT_TERMINAL_PROMPT: 0 # reports "terminal prompts disabled" on missing password
 
     - name: Run script
-      shell: "source /opt/{{ repo }}/{{ script }}"
+      shell: "source {{ git_dir }}/{{ repo | basename }}/{{ script }}"
       args:
         executable: /bin/bash

@@ -5,16 +5,19 @@
   hosts: localhost
   gather_facts: true
 
+  vars:
+    - git_dir: /opt
+
   tasks:
     - name: Clone git repo
       ansible.builtin.git:
         repo: "{{ repo }}"
-        dest: "/opt/{{ repo }}"
+        dest: "{ git_dir }/{{ repo | basename }}"
       environment:
         GIT_TERMINAL_PROMPT: 0
 
     - name: write service file
-      shell: 'echo "[Unit]\nDescription=My test service\nAfter=multi-user.target\n\n[Service]\nType=simple\nRestart=always\nExecStart=/usr/bin/python3 /opt/{{ repo }}/{{ script }}\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/python_script.service'
+      shell: 'echo "[Unit]\nDescription=My test service\nAfter=multi-user.target\n\n[Service]\nType=simple\nRestart=always\nExecStart=/usr/bin/python3 {{ git_dir }}}/{{ repo | basename }}/{{ script }}\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/python_script.service'
 
     - name: Start python script
       systemd:
